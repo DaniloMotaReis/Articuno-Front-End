@@ -1,5 +1,11 @@
 const url = 'http://localhost:8080/';
 
+document.onreadystatechange = () => {
+    if (document.readyState == 'complete') {
+        sessionStorage.removeItem("email");
+    }
+}
+
 function userCreate() {
     const email = $("#email-ca").val();
     const senha = $("#senha-ca").val();

@@ -1,5 +1,14 @@
 body{
-    background-color: black;
+    font-family: sans-serif;
+    background: linear-gradient(-45deg, #07A3B2, #D9ECC7);
+}
+
+#postar-ca{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color:#6495ed;
+	border-radius: 10px 20px 30px 40px;
 }
 
 #posts-list{
@@ -35,4 +44,17 @@ body{
     border-radius: 40px 40px 40px 40px;
     display: flex;
     justify-content: center;
+}
+
+#fotoPerfil{
+    border-radius: 100px 100px 100px 100px;
+    order: 1;
+}
+
+#pos-ca{
+    order: 2;
+}
+
+#postar-btn{
+    order: 3;
 }

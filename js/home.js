@@ -3,7 +3,9 @@ const email = sessionStorage.getItem("email");
 
 document.onreadystatechange = () => {
     if (document.readyState == 'complete') {
-        postsGetAll();
+        if(email.valueOf){
+            postsGetAll();
+        }
     }
 }
 
@@ -31,7 +33,7 @@ function checkBoxL(checkId) {
         type: "PUT",
         url: `${url}reactions/${checkId}`,
         data : body,
-        success : function(data){labReactions(checkId)},
+        success : function(data){instReactions(checkId)},
         contentType: "application/json",
         dataType: "json"
     });
@@ -43,13 +45,13 @@ function checkBoxD(checkId) {
         type: "PUT",
         url: `${url}reactions/${checkId}`,
         data : body,
-        success : function(data){labReactions(checkId)},
+        success : function(data){instReactions(checkId)},
         contentType: "application/json",
         dataType: "json"
     });
 };
 
-function labReactions(checkId){
+function instReactions(checkId){
     const labelD = $(`#D${checkId}`);
     const labelL = $(`#L${checkId}`);
     var tes;
@@ -78,7 +80,7 @@ function statusReactions(id) {
            if(data != null){
             tes = data;
            } else {
-            tes = null;
+            tes = '';
            }
         },
         contentType: "application/json",
@@ -111,22 +113,26 @@ function postsGetAll() {
     $.getJSON(url+"posts", function(data) {
         const divFedd = $(`<div class="feed">`)
         data.forEach(e => {
-            const divs = $(`<div class="posts">`)
-            const divInfo = $(`<div class="info">`)
-            const divPost = $(`<div class="post">`)
-            const image = $(`<img src="${e.user.picture}" height="100" width="100">`)
-            const h5 = $(`<h2>${e.user.nickname}</h2>`);
-            const date = $(`<p><small>${e.dtPost}</p>`);
-            divInfo.append(image, h5, date);
-            const desc = $(`<p><big>${e.post}</p>`);
-            divPost.append(desc);
-            const divReact = $(`<div class="btn-group" role="group" aria-label="Basic radio toggle button group">`);
-            const btnLike = $(`<input type="radio" class="btn-check" name="btnradio${e.idPost}" ${(statusReactions(e.idPost) != null) ? ((statusReactions(e.idPost) == true) ? 'checked' : '') : ''} id="btncheckL${e.idPost}" onclick="checkBoxL(${e.idPost})" autocomplete="off" >`);
-            const like = $(`<label class="btn btn-outline-primary" for="btncheckL${e.idPost}" id="L${e.idPost}">${contReactions(e.idPost, 0)}<i class="bi bi-emoji-smile"></i></label>`);
-            const btnDeslike = $(`<input type="radio" class="btn-check" name="btnradio${e.idPost}" ${(statusReactions(e.idPost) != null) ? ((statusReactions(e.idPost) == false) ? 'checked' : '') : ''} id="btncheckD${e.idPost}" onclick="checkBoxD(${e.idPost})" autocomplete="off">`);
-            const deslike = $(`<label class="btn btn-outline-primary" for="btncheckD${e.idPost}" id="D${e.idPost}">${contReactions(e.idPost, 1)}<i class="bi bi-emoji-angry"></i></label>`);
-            divReact.append(btnLike, like, btnDeslike, deslike);
-            divs.append(divInfo, divPost, divReact);
+            if(e.user.email == email) {
+                $("#postar-ca").append(`<img id="fotoPerfil" src="${e.user.picture}" height="50" width="50"></img>`);
+            }
+            const divs = $(
+            `<div class="posts">
+                <div class="info">
+                    <img src="${e.user.picture}" height="100" width="100">
+                    <h2>${e.user.nickname}</h2>
+                    <p><small>${e.dtPost}</small></p>
+                </div>
+                <div class="post">
+                    <p><big>${e.post}</big></p>
+                </div>
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">    
+                    <input type="radio" class="btn-check" name="btnradio${e.idPost}" ${(statusReactions(e.idPost) == true) ? 'checked' : ''} id="btncheckL${e.idPost}" onclick="checkBoxL(${e.idPost})" autocomplete="off" >
+                    <label class="btn btn-outline-primary" for="btncheckL${e.idPost}" ><i class="bi bi-emoji-smile" id="L${e.idPost}">${contReactions(e.idPost, 0)}</i></label>
+                    <input type="radio" class="btn-check" name="btnradio${e.idPost}" ${(statusReactions(e.idPost) == false) ? 'checked' : ''} id="btncheckD${e.idPost}" onclick="checkBoxD(${e.idPost})" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheckD${e.idPost}" ><i class="bi bi-emoji-angry" id="D${e.idPost}">${contReactions(e.idPost, 1)}</i></label>
+                </div>
+            </div>`)
             divFedd.append(divs);
         });
         $("#posts-list").append(divFedd);
