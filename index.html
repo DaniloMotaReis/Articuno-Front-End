@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login-Orkut</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/orkut.js"></script>
+</head>
+<body>
+    <div id="main" class="main-login">
+        <div class="left-login">
+            <h1>Orkut-Pássaro Azul</h1>
+            <img src="img/articuno2.png" class="img-left-login" alt="articuno">    
+        </div>
+        <div class="right-login">
+            <div class="card-login">
+                <h1>Login</h1>
+                <div class="textfield">
+                    <label for="email">E-mail:</label>
+                    <input type="text" id="email-ca" name="email" placeholder="E-mail"><br>
+                </div>
+                <div class="textfield">
+                    <label for="senha">Senha:</label>
+                    <input type="password" id="senha-ca" name="senha" placeholder="Senha"><br>
+                </div>
+                    <button class="btn-entrar" id="entrar-btn" onclick="loginUser()">Entrar</button>
+                    <a href="cadastro.html"><button class="btn-inscrever" id="inscrever-btn">Inscrever</button></a><br>
+                    <span id="invalido-span"></span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
