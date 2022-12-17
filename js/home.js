@@ -115,7 +115,7 @@ function postsGetAll() {
             const divInfo = $(`<div class="info">`)
             const divPost = $(`<div class="post">`)
             const image = $(`<img src="${e.user.picture}" height="100" width="100">`)
-            const h5 = $(`<h2>${e.user.nick}</h2>`);
+            const h5 = $(`<h2>${e.user.nickname}</h2>`);
             const date = $(`<p><small>${e.dtPost}</p>`);
             divInfo.append(image, h5, date);
             const desc = $(`<p><big>${e.post}</p>`);

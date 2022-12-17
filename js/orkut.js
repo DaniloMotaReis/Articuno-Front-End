@@ -5,7 +5,7 @@ function userCreate() {
     const senha = $("#senha-ca").val();
     const nick = $("#nick-ca").val();
     const status = $("#status-ca").val();
-    const body = `{"email": "${email}", "pwd": "${senha}", "nick": "${nick}", "status": "${status}"}`;
+    const body = `{"email": "${email}", "password": "${senha}", "nickname": "${nick}", "status": "${status}"}`;
     $.ajax({
         type: "POST",
         url: url+'users',
