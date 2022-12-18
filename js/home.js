@@ -18,13 +18,50 @@ function postCreate() {
             url: url+"posts",
             data: body,
             success: (res) => {
-                $("#pos-ca").val("")
                 postsGetAll();
             },
             contentType: "application/json",
             dataType: "json"
         });
     }
+}
+
+function answerCreate(postId) {
+    const answer = $("#res-ca"+postId).val();
+    const body = `{"answer" : "${answer}", "email" : "${email}", "idPost" : "${postId}"}`
+    if(answer != "") {
+        $.ajax({
+            type: "POST",
+            url: url+"answer",
+            data: body,
+            success: (res) => {
+                postsGetAll();
+            },
+            contentType: "application/json",
+            dataType: "json"
+        });
+    }
+}
+
+function answerGetPost() {
+    $.getJSON(url+"posts", function(data) {
+        data.forEach(e => {
+            $.getJSON(url+"answer/"+e.idPost,  function(res) {
+                const divAnswer = $(`<div class="text-answer">`);
+                res.forEach(r => {
+                    const imgRes = `
+                    <img class="img-post" src="${r.user.picture}" height="35" width="35">`;
+                    const h3res = `
+                    <h3>${r.user.nickname}</h3>`;
+                    const pRes =`
+                    <p>${r.answer}</p>`;
+                    const dataRes = `<p><small>${r.dtAnswer}</small></p>`
+                    divAnswer.append(imgRes, h3res, pRes, dataRes);
+                });
+                $(`#posts${e.idPost}`).append(divAnswer);
+            });
+        });
+    });
 }
 
 function checkBoxL(checkId) {
@@ -111,15 +148,14 @@ function contReactions(checkId, n){
 function postsGetAll() {
     $("#posts-list").empty();
     $.getJSON(url+"posts", function(data) {
+        var id;
         const divFedd = $(`<div class="feed">`)
         data.forEach(e => {
-            if(e.user.email == email) {
-                $("#postar-ca").append(`<img id="fotoPerfil" src="${e.user.picture}" height="50" width="50"></img>`);
-            }
+            id = e.idPost;
             const divs = $(
-            `<div class="posts">
+            `<div class="posts" id="posts${e.idPost}">
                 <div class="info">
-                    <img src="${e.user.picture}" height="100" width="100">
+                    <img class="img-post" src="${e.user.picture}" height="100" width="100">
                     <h2>${e.user.nickname}</h2>
                     <p><small>${e.dtPost}</small></p>
                 </div>
@@ -132,9 +168,13 @@ function postsGetAll() {
                     <input type="radio" class="btn-check" name="btnradio${e.idPost}" ${(statusReactions(e.idPost) == false) ? 'checked' : ''} id="btncheckD${e.idPost}" onclick="checkBoxD(${e.idPost})" autocomplete="off">
                     <label class="btn btn-outline-primary" for="btncheckD${e.idPost}" ><i class="bi bi-emoji-angry" id="D${e.idPost}">${contReactions(e.idPost, 1)}</i></label>
                 </div>
+                <div class="answer">
+                    <input type="text" class="res-ca" id="res-ca${e.idPost}" placeholder="Responda a postagem"><button class="res-btn" id="res-btn${e.idPost}" onclick="answerCreate(${e.idPost})">Responder</button><br>
+                </div>
             </div>`)
             divFedd.append(divs);
         });
         $("#posts-list").append(divFedd);
     });
+    answerGetPost();
 }

@@ -11,6 +11,28 @@ body{
 	border-radius: 10px 20px 30px 40px;
 }
 
+#pos-ca{
+    border: none;
+    border-radius: 5px;
+    margin: 10px;
+    background: #C0C0C0;
+    color: #1C1C1C;
+    box-shadow: 0px 10px 40px #00000056;
+    box-sizing: border-box;
+}
+
+#postar-btn{
+    font-size: 1.0em;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 5px;
+    background: linear-gradient(-45deg, #07A3B2, #D9ECC7);
+    color: #1C1C1C;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 0px 10px 40px -12px #00000056;
+}
+
 #posts-list{
     display: flex;
     justify-content: center;
@@ -28,33 +50,62 @@ body{
 }
 
 .posts{
-	width: 400px;
-	height:200px;
+	width: 500px;
 	background-color:#6495ed;
 	border-radius: 10px 20px 30px 40px;
-    display: inline-flex;
+    display: grid;
     flex-direction: column;
-    justify-content: space-around;
     margin: 15px;
     padding: 10px;
+    grid-column-gap: 10px;
+    grid-row-gap: 1em;
 }
 
 .post{
     background-color:aqua;
     border-radius: 40px 40px 40px 40px;
+    padding: 10px;
     display: flex;
     justify-content: center;
 }
 
-#fotoPerfil{
+.answer{
+    display: inline-flex;
+    justify-content: space-around;
+}
+
+.res-ca{
+    border: none;
+    border-radius: 5px;
+    padding: 15px;
+    background: #C0C0C0;
+    color: #1C1C1C;
+    box-shadow: 0px 10px 40px #00000056;
+    box-sizing: border-box;
+}
+
+.res-btn{
+    font-size: 1.0em;
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid;
+    border-radius: 5px;
+    background: linear-gradient(-45deg, #07A3B2, #D9ECC7);
+    color: #1C1C1C;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 0px 10px 40px -12px #00000056;
+}
+
+.img-post{
     border-radius: 100px 100px 100px 100px;
-    order: 1;
+    
 }
 
 #pos-ca{
-    order: 2;
+    order: 1;
 }
 
 #postar-btn{
-    order: 3;
+    order: 2;
 }
